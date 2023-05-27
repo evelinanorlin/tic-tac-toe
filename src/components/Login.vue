@@ -4,16 +4,43 @@
   let playerO = ref('');
   let playerX = ref('');
 
+  let buttonDisabled = ref(true);
+
+  let checkStartArr =ref<string[]>([]);
+
   const emits = defineEmits<{
     (e: string, name: string): void
   }>()
 
   const sendPlayerO = () => {
     emits('playerO', playerO.value);
+
+    checkStartArr.value = [...checkStartArr.value, '1']
+
+    if(checkStartArr.value.length >= 2){
+      enableStartGame()
+    }
   }
 
   const sendPlayerX = () => {
     emits('playerX', playerX.value);
+
+    checkStartArr.value = [...checkStartArr.value, '1']
+
+    checkStartArr.value = [...checkStartArr.value, '1']
+
+    if(checkStartArr.value.length >= 2){
+    enableStartGame()
+  }
+  }
+
+  const enableStartGame = () => {
+    console.log('runs')
+    buttonDisabled.value = false;
+  }
+
+  const startGame = () => {
+    emits('start', 'start');
   }
 
 </script>
@@ -33,5 +60,5 @@
     <button @click.prevent="sendPlayerX">Spara</button>
   </form>
 
-  <button disabled>Start game!</button>
+  <button :disabled="buttonDisabled" @click="startGame">Start game!</button>
 </template>
