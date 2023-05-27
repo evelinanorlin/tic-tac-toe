@@ -14,7 +14,6 @@
 
   const sendPlayerO = () => {
     emits('playerO', playerO.value);
-
     checkStartArr.value = [...checkStartArr.value, '1']
 
     if(checkStartArr.value.length >= 2){
@@ -24,9 +23,6 @@
 
   const sendPlayerX = () => {
     emits('playerX', playerX.value);
-
-    checkStartArr.value = [...checkStartArr.value, '1']
-
     checkStartArr.value = [...checkStartArr.value, '1']
 
     if(checkStartArr.value.length >= 2){

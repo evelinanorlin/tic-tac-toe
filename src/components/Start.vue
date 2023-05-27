@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Login from './Login.vue';
-import GameBoard from './GameBoard.vue';
+import GameView from './GameView.vue';
 
 let showLogin = ref(true);
 
-let playerO = ref({name: '', score: 0})
-let playerX = ref({name: '', score: 0})
+let playerO = ref({name: '', score: 0, symbol: 'O'})
+let playerX = ref({name: '', score: 0, symbol: 'X'})
 
 const addPlayerO = (newName: string) => {
   playerO.value.name = newName;
-  console.log(playerO);
 }
 
 const addPlayerX = (newName: string) => {
   playerX.value.name = newName;
-  console.log(playerX);
 }
 
 const startGame = () => {
@@ -29,6 +27,6 @@ const startGame = () => {
   </div>
 
   <div v-else>
-    <GameBoard />
+    <GameView :playerO="playerO" :playerX="playerX"/>
   </div>
 </template>
