@@ -41,7 +41,36 @@ const squareClick = (currentId: number) => {
       }
     }
   })
+  isWinner();
+}
 
+const isWinner = () => {
+  console.log('runs')
+  if(
+    (board.value[0].content === 'X' && board.value[1].content === 'X' && board.value[2].content === 'X') ||
+    (board.value[3].content === 'X' && board.value[4].content === 'X' && board.value[5].content === 'X') ||
+    (board.value[6].content === 'X' && board.value[7].content === 'X' && board.value[8].content === 'X') ||
+    (board.value[0].content === 'X' && board.value[4].content === 'X' && board.value[8].content === 'X') ||
+    (board.value[2].content === 'X' && board.value[4].content === 'X' && board.value[6].content === 'X')
+  ){
+    console.log('X won')
+  } else if (
+    (board.value[0].content === 'O' && board.value[1].content === 'O' && board.value[2].content === 'O') ||
+    (board.value[3].content === 'O' && board.value[4].content === 'O' && board.value[5].content === 'O') ||
+    (board.value[6].content === 'O' && board.value[7].content === 'O' && board.value[8].content === 'O') ||
+    (board.value[0].content === 'O' && board.value[4].content === 'O' && board.value[8].content === 'O') ||
+    (board.value[2].content === 'O' && board.value[4].content === 'O' && board.value[6].content === 'O')
+  ){
+    console.log('O won')
+  } else if (
+    board.value[0].content !== '' && board.value[1].content !== '' &&
+    board.value[2].content !== '' && board.value[3].content !== '' && 
+    board.value[4].content !== '' && board.value[5].content !== '' &&
+    board.value[6].content !== '' && board.value[7].content !== '' &&
+    board.value[8].content !== ''
+  ){
+    console.log('even')
+  }
 }
 </script>
 
