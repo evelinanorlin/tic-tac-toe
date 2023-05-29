@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { stringifyExpression } from '@vue/compiler-core';
-import GameBoard from './gameBoard.vue';
+import GameBoard from './GameBoard.vue';
 
 const props = defineProps<{playerO: {
   name: string,
@@ -12,13 +11,23 @@ const props = defineProps<{playerO: {
   symbol: string
 }}>()
 
+const handleWinner = (winner: string) => {
+  if(winner == 'X'){
+    console.log(winner)
+  } else if(winner == 'O'){
+    console.log(winner)
+  } else{
+    console.log(winner)
+  }
+}
+
 </script>
 
 <template>
   <h2>Welcome {{ props.playerO.name }} & {{ props.playerX.name }}</h2>
   <h1>Lets play Tic-Tac-Toe!</h1>
   <div>
-    <GameBoard :playerO="playerO" :playerX="playerX"/>
+    <GameBoard :playerO="playerO" :playerX="playerX" @winner="(winner: string) => handleWinner(winner)"/>
   </div>
   <div>
     <button>Start over</button>

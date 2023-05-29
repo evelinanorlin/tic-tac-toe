@@ -12,7 +12,15 @@ const props = defineProps<{
     symbol: string
 }}>();
 
+const emits = defineEmits<{
+    (e: 'winner', winner: string): void
+  }>()
+
 let currentPlayer = ref(props.playerO);
+
+let winner = ref('');
+
+let haveWinner = ref(false)
 
 let board = ref([
   {id: 1, content: ''},
@@ -27,21 +35,26 @@ let board = ref([
 ])
 
 const squareClick = (currentId: number) => {
-
-  board.value.map(square => {
-    if (square.id == currentId){
-      if(square.content !== ''){
-        return
+  console.log('yes')
+  if (haveWinner.value == true){
+    console.log('nope')
+    return
+  } else{
+    board.value.map(square => {
+      if (square.id == currentId){
+        if(square.content !== ''){
+          return
+        }
+        square.content = currentPlayer.value.symbol
+        if (currentPlayer.value.symbol == 'O'){
+          currentPlayer.value = props.playerX;
+        } else{
+          currentPlayer.value = props.playerO;
+        }
       }
-      square.content = currentPlayer.value.symbol
-      if (currentPlayer.value.symbol == 'O'){
-        currentPlayer.value = props.playerX;
-      } else{
-        currentPlayer.value = props.playerO;
-      }
-    }
-  })
-  isWinner();
+    })
+    isWinner();
+  }
 }
 
 const isWinner = () => {
@@ -53,7 +66,11 @@ const isWinner = () => {
     (board.value[0].content === 'X' && board.value[4].content === 'X' && board.value[8].content === 'X') ||
     (board.value[2].content === 'X' && board.value[4].content === 'X' && board.value[6].content === 'X')
   ){
-    console.log('X won')
+    console.log('X wins')
+    emits('winner', 'X');
+    winner.value = props.playerX.name;
+    haveWinner.value = true;
+
   } else if (
     (board.value[0].content === 'O' && board.value[1].content === 'O' && board.value[2].content === 'O') ||
     (board.value[3].content === 'O' && board.value[4].content === 'O' && board.value[5].content === 'O') ||
@@ -61,21 +78,27 @@ const isWinner = () => {
     (board.value[0].content === 'O' && board.value[4].content === 'O' && board.value[8].content === 'O') ||
     (board.value[2].content === 'O' && board.value[4].content === 'O' && board.value[6].content === 'O')
   ){
-    console.log('O won')
+    emits('winner', 'O');
+    winner.value = props.playerO.name;
+    haveWinner.value = true;
+
   } else if (
     board.value[0].content !== '' && board.value[1].content !== '' &&
     board.value[2].content !== '' && board.value[3].content !== '' && 
     board.value[4].content !== '' && board.value[5].content !== '' &&
     board.value[6].content !== '' && board.value[7].content !== '' &&
     board.value[8].content !== ''
-  ){
-    console.log('even')
+  ) {
+    emits('winner', 'even');
+  } else{
+    return
   }
 }
 </script>
 
 <template>
-  <p>It's {{ currentPlayer.name }}s turn</p>
+  <h3 v-if="haveWinner">{{ winner }} won!</h3>
+  <h3 v-else>It's {{ currentPlayer.name }}s turn</h3>
   <div class="boardGrid">
     <div class="boardSquare" v-for="square in board" @click="() => squareClick(square.id)">{{ square.content }}</div>
   </div>
