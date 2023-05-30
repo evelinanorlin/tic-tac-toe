@@ -20,7 +20,9 @@ let currentPlayer = ref(props.playerO);
 
 let winner = ref('');
 
-let haveWinner = ref(false)
+let haveWinner = ref(false);
+
+let isEVen = ref(false);
 
 let board = ref([
   {id: 1, content: ''},
@@ -87,6 +89,7 @@ const isWinner = () => {
     board.value[8].content !== ''
   ) {
     emits('winner', 'even');
+    isEVen.value = true;
   } else{
     return
   }
@@ -98,11 +101,13 @@ const resetBoard = () => {
     square.content = '';
   })
   haveWinner.value = false; 
+  isEVen.value = false;
 }
 </script>
 
 <template>
-  <h3 v-if="haveWinner">{{ winner }} won!</h3>
+  <h3 v-if="haveWinner && !isEVen">{{ winner }} won!</h3>
+  <h3 v-else-if="!haveWinner && isEVen">Let´s call it even</h3>
   <h3 v-else>It's {{ currentPlayer.name }}s turn</h3>
   <div class="boardGrid">
     <div class="boardSquare" v-for="square in board" @click="() => squareClick(square.id)">{{ square.content }}</div>
