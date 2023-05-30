@@ -15,9 +15,6 @@ const emits = defineEmits<{
   (e: string, winner: string): void,
 }>();
 
-
-// Skicka poäng till objekt i start
-
 const handleWinner = (winner: string) => {
   if(winner == 'X'){
     console.log(winner)
