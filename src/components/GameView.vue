@@ -11,14 +11,27 @@ const props = defineProps<{playerO: {
   symbol: string
 }}>()
 
+const emits = defineEmits<{
+  (e: string, winner: string): void,
+}>();
+
+
+// Skicka poäng till objekt i start
+
 const handleWinner = (winner: string) => {
   if(winner == 'X'){
     console.log(winner)
+    emits('addPoint', 'X');
   } else if(winner == 'O'){
     console.log(winner)
+    emits('addPoint', 'O');
   } else{
     console.log(winner)
   }
+}
+
+const resetGame = () => {
+  emits('reset', '');
 }
 
 </script>
@@ -30,8 +43,9 @@ const handleWinner = (winner: string) => {
     <GameBoard :playerO="playerO" :playerX="playerX" @winner="(winner: string) => handleWinner(winner)"/>
   </div>
   <div>
-    <button>Start over</button>
-    <button>Game statistics</button>
-    <button>Reset game</button>
+    <h2>Game stats</h2>
+    <p>{{ props.playerO.name }}: {{ props.playerO.score }} points</p>
+    <p>{{ props.playerX.name }}: {{ props.playerX.score }} points</p>
+    <button @click="resetGame">Reset game</button>
   </div>
 </template>

@@ -19,6 +19,20 @@ const addPlayerX = (newName: string) => {
 const startGame = () => {
   showLogin.value = false;
 }
+
+const addPoint = (winner: string) => {
+  if(winner == 'O'){
+    playerO.value.score ++;
+  } else if(winner == 'X'){
+    playerX.value.score ++;
+  }
+}
+
+const resetGame = () => {
+  playerO.value = {name: '', score: 0, symbol: 'O'};
+  playerX.value = {name: '', score: 0, symbol: 'X'};
+  showLogin.value = true;
+}
 </script>
 
 <template>
@@ -27,6 +41,6 @@ const startGame = () => {
   </div>
 
   <div v-else>
-    <GameView :playerO="playerO" :playerX="playerX"/>
+    <GameView :playerO="playerO" :playerX="playerX" @addPoint="addPoint" @reset="resetGame"/>
   </div>
 </template>

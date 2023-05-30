@@ -35,9 +35,7 @@ let board = ref([
 ])
 
 const squareClick = (currentId: number) => {
-  console.log('yes')
   if (haveWinner.value == true){
-    console.log('nope')
     return
   } else{
     board.value.map(square => {
@@ -58,7 +56,6 @@ const squareClick = (currentId: number) => {
 }
 
 const isWinner = () => {
-  console.log('runs')
   if(
     (board.value[0].content === 'X' && board.value[1].content === 'X' && board.value[2].content === 'X') ||
     (board.value[3].content === 'X' && board.value[4].content === 'X' && board.value[5].content === 'X') ||
@@ -93,6 +90,14 @@ const isWinner = () => {
   } else{
     return
   }
+
+}
+
+const resetBoard = () => {
+  board.value.map(square => {
+    square.content = '';
+  })
+  haveWinner.value = false; 
 }
 </script>
 
@@ -102,6 +107,7 @@ const isWinner = () => {
   <div class="boardGrid">
     <div class="boardSquare" v-for="square in board" @click="() => squareClick(square.id)">{{ square.content }}</div>
   </div>
+  <button @click="resetBoard">Play again</button>
 </template>
 
 <style>
