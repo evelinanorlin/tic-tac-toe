@@ -3,59 +3,57 @@ import { ref } from 'vue';
 import Login from './Login.vue';
 import GameView from './GameView.vue';
 
+let showLogin = ref(JSON.parse(localStorage.getItem('showLogin') ?? '"start"'));
+let playerO = ref(JSON.parse(localStorage.getItem('playerO') ?? 'null'));
+let playerX = ref(JSON.parse(localStorage.getItem('playerX') ?? 'null'));
 
-
-let showLogin = JSON.parse(localStorage.getItem('showLogin') || 'null');
-let playerO = JSON.parse(localStorage.getItem('playerO') || 'null');
-let playerX = JSON.parse(localStorage.getItem('playerX') || 'null');
-localStorage.clear()
-init();
-
-function init(){
-  if(showLogin == null){
+function createVariables(){
+  if(showLogin.value == 'start'){
     showLogin = ref(true);
   }
-  if(playerO == null){
+  if(!playerO.value){
     playerO = ref({name: '', score: 0, symbol: 'O'});
   }
-  if(playerX == null){
+  if(!playerX.value){
     playerX = ref({name: '', score: 0, symbol: 'X'});
     console.log(playerX.value)
   }
 }
 
-
 const addPlayerO = (newName: string) => {
   playerO.value.name = newName;
-  localStorage.setItem('playerO', JSON.stringify(playerO));
+  localStorage.setItem('playerO', JSON.stringify(playerO.value));
   console.log(playerO.value.name)
 }
 
 const addPlayerX = (newName: string) => {
   playerX.value.name = newName;
-  localStorage.setItem('playerX', JSON.stringify(playerX));
+  localStorage.setItem('playerX', JSON.stringify(playerX.value));
 }
 
 const startGame = () => {
   showLogin.value = false;
-  localStorage.setItem('showLogin', JSON.stringify(showLogin))
+  localStorage.setItem('showLogin', JSON.stringify(showLogin.value))
 }
 
 const addPoint = (winner: string) => {
   if(winner == 'O'){
     playerO.value.score ++;
-    //localStorage.setItem('playerO', JSON.stringify(playerO))
+    localStorage.setItem('playerO', JSON.stringify(playerO.value))
   } else if(winner == 'X'){
     playerX.value.score ++;
-    //localStorage.setItem('playerX', JSON.stringify(playerX))
+    localStorage.setItem('playerX', JSON.stringify(playerX.value))
   }
 }
 
 const resetGame = () => {
   playerO.value = {name: '', score: 0, symbol: 'O'};
   playerX.value = {name: '', score: 0, symbol: 'X'};
+  showLogin.value = true;
   localStorage.clear();
 }
+
+createVariables();
 </script>
 
 <template>

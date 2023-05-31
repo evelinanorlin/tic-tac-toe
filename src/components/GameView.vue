@@ -17,10 +17,8 @@ const emits = defineEmits<{
 
 const handleWinner = (winner: string) => {
   if(winner == 'X'){
-    console.log(winner)
     emits('addPoint', 'X');
   } else if(winner == 'O'){
-    console.log(winner)
     emits('addPoint', 'O');
   } else{
     console.log(winner)

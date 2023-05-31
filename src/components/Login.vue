@@ -3,9 +3,7 @@
 
   let playerO = ref('');
   let playerX = ref('');
-
   let buttonDisabled = ref(true);
-
   let checkStartArr =ref<string[]>([]);
 
   const emits = defineEmits<{
