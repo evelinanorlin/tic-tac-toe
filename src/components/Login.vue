@@ -3,6 +3,8 @@
 
   let playerO = ref('');
   let playerX = ref('');
+  let playerOName = ref('');
+  let playerXName = ref('');
   let buttonDisabled = ref(true);
   let checkStartArr =ref<string[]>([]);
 
@@ -13,6 +15,7 @@
   const sendPlayerO = () => {
     emits('playerO', playerO.value);
     checkStartArr.value = [...checkStartArr.value, '1']
+    playerOName.value = playerO.value;
 
     if(checkStartArr.value.length >= 2){
       enableStartGame()
@@ -21,7 +24,8 @@
 
   const sendPlayerX = () => {
     emits('playerX', playerX.value);
-    checkStartArr.value = [...checkStartArr.value, '1']
+    checkStartArr.value = [...checkStartArr.value, '1'];
+    playerXName.value = playerX.value;
 
     if(checkStartArr.value.length >= 2){
     enableStartGame()
@@ -53,6 +57,11 @@
     <input type="text" id="playerX" v-model="playerX">
     <button @click.prevent="sendPlayerX">Spara</button>
   </form>
+
+  <div>
+    <p>Player O: {{ playerOName }}</p>
+    <p>Player X: {{ playerXName }}</p>
+  </div>
 
   <button :disabled="buttonDisabled" @click="startGame">Start game!</button>
 </template>
