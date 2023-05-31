@@ -65,3 +65,10 @@ createVariables();
     <GameView :playerO="playerO" :playerX="playerX" @addPoint="addPoint" @reset="resetGame"/>
   </div>
 </template>
+
+<style>
+  body{
+    width: 500px;
+    margin: 0 auto;
+  }
+</style>

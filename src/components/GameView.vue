@@ -20,27 +20,33 @@ const handleWinner = (winner: string) => {
     emits('addPoint', 'X');
   } else if(winner == 'O'){
     emits('addPoint', 'O');
-  } else{
-    console.log(winner)
   }
 }
 
 const resetGame = () => {
   emits('reset', '');
 }
-
 </script>
 
 <template>
   <h2>Welcome {{ props.playerO.name }} & {{ props.playerX.name }}</h2>
   <h1>Lets play Tic-Tac-Toe!</h1>
-  <div>
-    <GameBoard :playerO="playerO" :playerX="playerX" @winner="(winner: string) => handleWinner(winner)"/>
-  </div>
+  <div class="gameFlex">
+    <div>
+      <GameBoard :playerO="playerO" :playerX="playerX" @winner="(winner: string) => handleWinner(winner)"/>
+    </div>
   <div>
     <h2>Game stats</h2>
     <p>{{ props.playerO.name }}: {{ props.playerO.score }} points</p>
     <p>{{ props.playerX.name }}: {{ props.playerX.score }} points</p>
     <button @click="resetGame">Reset game</button>
   </div>
+</div>
 </template>
+
+<style>
+  .gameFlex{
+    display: flex;
+    justify-content: space-between;
+  }
+</style>

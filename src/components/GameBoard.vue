@@ -24,16 +24,9 @@ let isEven = ref(JSON.parse(localStorage.getItem('isEven') ?? '"notEven"'));
 
 const getStartValues = () => {
   if(!board.value){
-    board = ref([
-    {id: 1, content: ''},
-    {id: 2, content: ''},
-    {id: 3, content: ''},
-    {id: 4, content: ''},
-    {id: 5, content: ''},
-    {id: 6, content: ''},
-    {id: 7, content: ''},
-    {id: 8, content: ''},
-    {id: 9, content: ''}
+    board = ref([{id: 1, content: ''}, {id: 2, content: ''}, {id: 3, content: ''},
+    {id: 4, content: ''}, {id: 5, content: ''}, {id: 6, content: ''},
+    {id: 7, content: ''}, {id: 8, content: ''}, {id: 9, content: ''}
   ]);
   }
   if(!currentPlayer.value){
@@ -61,7 +54,6 @@ const squareClick = (currentId: number) => {
         }
         square.content = currentPlayer.value.symbol;
         localStorage.setItem('board', JSON.stringify(board.value));
-
         if (currentPlayer.value.symbol == 'O'){
           currentPlayer.value = props.playerX;
           localStorage.setItem('currentPlayer', JSON.stringify(currentPlayer.value));
@@ -139,7 +131,7 @@ getStartValues();
   <h3 v-else-if="!haveWinner && isEven">Let´s call it even</h3>
   <h3 v-else>It's {{ currentPlayer.name }}s turn</h3>
   <div class="boardGrid">
-    <div class="boardSquare" v-for="square in board" @click="() => squareClick(square.id)">{{ square.content }}</div>
+    <div class="boardSquare" v-for="square in board" @click="() => squareClick(square.id)"><p class="symbol">{{ square.content }}</p></div>
   </div>
   <button @click="resetBoard">Play again</button>
 </template>
@@ -153,6 +145,12 @@ getStartValues();
     height: 70px;
     width: 70px;
     border: 1px solid black;
+  }
+  .symbol{
     font-size: 5rem;
+    margin: 0;
+    position: relative;
+    bottom: 10px;
+    left: 7px;
   }
 </style>
