@@ -31,8 +31,8 @@ const resetGame = () => {
     </div>
   <div class="gameStats">
     <h2>Game stats</h2>
-    <p>{{ props.playerO.name }}: {{ props.playerO.score }} points</p>
-    <p>{{ props.playerX.name }}: {{ props.playerX.score }} points</p>
+    <p>{{ props.playerO.name }}: <b>{{ props.playerO.score }}</b> points</p>
+    <p>{{ props.playerX.name }}: <b>{{ props.playerX.score }}</b> points</p>
     <button @click="resetGame" class="resetBtn">Reset game</button>
   </div>
 </div>

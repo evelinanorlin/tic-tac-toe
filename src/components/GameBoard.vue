@@ -86,6 +86,9 @@ const isWinner = () => {
     emits('winner', 'X');
     winner.value = props.playerX.name;
     haveWinner.value = true;
+    board.value.map((square: {class: boolean}) => {
+      square.class = true;
+    })
     updateState();
   } else if (
     board.value[0].content === 'O' && board.value[1].content === 'O' && board.value[2].content === 'O' ||
@@ -100,6 +103,9 @@ const isWinner = () => {
     emits('winner', 'O');
     winner.value = props.playerO.name;
     haveWinner.value = true;
+    board.value.map((square: {class: boolean}) => {
+      square.class = true;
+    })
     updateState()
   } else if (
     board.value[0].content !== '' && board.value[1].content !== '' &&
