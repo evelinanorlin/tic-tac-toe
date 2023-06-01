@@ -38,6 +38,15 @@ const getStartValues = () => {
   }
 }
 
+const updateState = () => {
+  localStorage.setItem('winner', JSON.stringify(winner.value));
+  localStorage.setItem('haveWinner', JSON.stringify(haveWinner.value));
+  localStorage.setItem('isEven', JSON.stringify(isEven.value));
+  localStorage.setItem('board', JSON.stringify(board.value)); 
+  localStorage.setItem('isEven', JSON.stringify(isEven.value));
+  localStorage.setItem('currentPlayer', JSON.stringify(currentPlayer.value));
+}
+
 const squareClick = (currentId: number) => {
   if (haveWinner.value == true){
     return
@@ -49,13 +58,13 @@ const squareClick = (currentId: number) => {
         }
         square.content = currentPlayer.value.symbol;
         square.class = true;
-        localStorage.setItem('board', JSON.stringify(board.value));
+        updateState();
         if (currentPlayer.value.symbol == 'O'){
           currentPlayer.value = props.playerX;
-          localStorage.setItem('currentPlayer', JSON.stringify(currentPlayer.value));
+          updateState();
         } else{
           currentPlayer.value = props.playerO;
-          localStorage.setItem('currentPlayer', JSON.stringify(currentPlayer.value));
+          updateState();
         }
       }
     })
@@ -77,8 +86,7 @@ const isWinner = () => {
     emits('winner', 'X');
     winner.value = props.playerX.name;
     haveWinner.value = true;
-    localStorage.setItem('winner', JSON.stringify(winner.value));
-    localStorage.setItem('haveWinner', JSON.stringify(haveWinner.value));
+    updateState();
   } else if (
     board.value[0].content === 'O' && board.value[1].content === 'O' && board.value[2].content === 'O' ||
     board.value[3].content === 'O' && board.value[4].content === 'O' && board.value[5].content === 'O' ||
@@ -92,8 +100,7 @@ const isWinner = () => {
     emits('winner', 'O');
     winner.value = props.playerO.name;
     haveWinner.value = true;
-    localStorage.setItem('winner', JSON.stringify(winner.value));
-    localStorage.setItem('haveWinner', JSON.stringify(haveWinner.value));
+    updateState()
   } else if (
     board.value[0].content !== '' && board.value[1].content !== '' &&
     board.value[2].content !== '' && board.value[3].content !== '' && 
@@ -103,7 +110,7 @@ const isWinner = () => {
   ) {
     emits('winner', 'even');
     isEven.value = true;
-    localStorage.setItem('isEven', JSON.stringify(isEven.value));
+    updateState();
   } else{
     return
   }
@@ -116,9 +123,7 @@ const resetBoard = () => {
   })
   haveWinner.value = false; 
   isEven.value = false;
-  localStorage.setItem('haveWinner', JSON.stringify(haveWinner.value));
-  localStorage.setItem('isEven', JSON.stringify(isEven.value));
-  localStorage.setItem('board', JSON.stringify(board.value));
+  updateState();
 }
 
 getStartValues();
