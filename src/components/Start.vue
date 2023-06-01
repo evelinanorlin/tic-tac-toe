@@ -45,8 +45,8 @@ const addPoint = (winner: string) => {
 }
 
 const resetGame = () => {
-  playerO.value = {name: '', score: 0, symbol: 'O', class: ''};
-  playerX.value = {name: '', score: 0, symbol: 'X', class: ''};
+  playerO.value = {name: '', score: 0, symbol: 'O'};
+  playerX.value = {name: '', score: 0, symbol: 'X'};
   showLogin.value = true;
   localStorage.clear();
 }

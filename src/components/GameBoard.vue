@@ -2,8 +2,8 @@
 import { ref } from 'vue';
 
 const props = defineProps<{
-  playerO: {name: string, score: number, symbol: string, class: string}, 
-  playerX: {name: string, score: number, symbol: string, class: string
+  playerO: {name: string, score: number, symbol: string}, 
+  playerX: {name: string, score: number, symbol: string
 }}>();
 
 const emits = defineEmits<{
