@@ -45,21 +45,26 @@
 
 <template>
   <h1>Welcome to Tic-Tac-Toe!</h1>
-
-  <form>
-    <input type="text" id="playerO" v-model="playerO" placeholder="Player O">
-    <button @click.prevent="sendPlayerO">Add player O</button>
-  </form>
-
-  <form>
-    <input type="text" id="playerX" v-model="playerX" placeholder="Player X">
-    <button @click.prevent="sendPlayerX">Add player X</button>
-  </form>
-
-  <div>
-    <p>Player O: {{ playerOName }}</p>
-    <p>Player X: {{ playerXName }}</p>
+  <div class = "loginCont">
+    <form>
+      <input type="text" id="playerO" v-model="playerO" placeholder="Player O">
+      <button @click.prevent="sendPlayerO">Add player O</button>
+    </form>
+    <form>
+      <input type="text" id="playerX" v-model="playerX" placeholder="Player X">
+      <button @click.prevent="sendPlayerX">Add player X</button>
+    </form>
+    <div>
+      <p>Player O: {{ playerOName }}</p>
+      <p>Player X: {{ playerXName }}</p>
+    </div>
+    <button :disabled="buttonDisabled" @click="startGame" class="startBtn">Start game!</button>
   </div>
-
-  <button :disabled="buttonDisabled" @click="startGame" class="startBtn">Start game!</button>
 </template>
+
+<style>
+  .loginCont{
+    width: 100%;
+    padding-left: 70px;
+  }
+</style>

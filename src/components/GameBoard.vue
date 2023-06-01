@@ -2,14 +2,8 @@
 import { ref } from 'vue';
 
 const props = defineProps<{
-  playerO: {
-    name: string,
-    score: number, 
-    symbol: string
-}, playerX: {
-    name: string,
-    score: number,
-    symbol: string
+  playerO: {name: string, score: number, symbol: string, class: string}, 
+  playerX: {name: string, score: number, symbol: string, class: string
 }}>();
 
 const emits = defineEmits<{
@@ -24,9 +18,10 @@ let isEven = ref(JSON.parse(localStorage.getItem('isEven') ?? '"notEven"'));
 
 const getStartValues = () => {
   if(!board.value){
-    board = ref([{id: 1, content: ''}, {id: 2, content: ''}, {id: 3, content: ''},
-    {id: 4, content: ''}, {id: 5, content: ''}, {id: 6, content: ''},
-    {id: 7, content: ''}, {id: 8, content: ''}, {id: 9, content: ''}
+    board = ref([
+    {id: 1, content: '', class: false}, {id: 2, content: '', class: false}, {id: 3, content: '', class: false},
+    {id: 4, content: '', class: false}, {id: 5, content: '', class: false}, {id: 6, content: '', class: false},
+    {id: 7, content: '', class: false}, {id: 8, content: '', class: false}, {id: 9, content: '', class: false}
   ]);
   }
   if(!currentPlayer.value){
@@ -47,12 +42,13 @@ const squareClick = (currentId: number) => {
   if (haveWinner.value == true){
     return
   } else{
-    board.value.map((square: { id: number; content: string; }) => {
+    board.value.map((square: { id: number; content: string; class: boolean}) => {
       if (square.id == currentId){
         if(square.content !== ''){
           return
         }
         square.content = currentPlayer.value.symbol;
+        square.class = true;
         localStorage.setItem('board', JSON.stringify(board.value));
         if (currentPlayer.value.symbol == 'O'){
           currentPlayer.value = props.playerX;
@@ -114,8 +110,9 @@ const isWinner = () => {
 }
 
 const resetBoard = () => {
-  board.value.map((square: { content: string; }) => {
+  board.value.map((square: { content: string; class: boolean }) => {
     square.content = '';
+    square.class = false;
   })
   haveWinner.value = false; 
   isEven.value = false;
@@ -128,30 +125,55 @@ getStartValues();
 </script>
 
 <template>
-  <h3 v-if="haveWinner && !isEven">{{ winner }} won!</h3>
-  <h3 v-else-if="!haveWinner && isEven">Let´s call it even</h3>
-  <h3 v-else>It's {{ currentPlayer.name }}s turn</h3>
+  <h2 v-if="haveWinner && !isEven">{{ winner }} won!</h2>
+  <h2 v-else-if="!haveWinner && isEven">Let´s call it even</h2>
+  <h2 v-else>It's {{ currentPlayer.name }}s turn</h2>
   <div class="boardGrid">
-    <div class="boardSquare" v-for="square in board" @click="() => squareClick(square.id)"><p class="symbol">{{ square.content }}</p></div>
+    <div v-for="square in board" @click="() => squareClick(square.id)">
+        <div  class="boardSquare" :class="{taken: square.class}">
+        <p class="symbol">{{ square.content }}</p>
+      </div>
+    </div>
   </div>
-  <button @click="resetBoard">Play again</button>
+  <button @click="resetBoard" class="playAgainBtn">Play again</button>
 </template>
 
 <style>
   .boardGrid{
     display: grid;
-    grid-template-columns: 70px 70px 70px;
+    grid-template-columns: 100px 100px 100px;
+    margin-right: 60px;
   }
   .boardSquare{
-    height: 70px;
-    width: 70px;
+    height: 100px;
+    width: 100px;
     border: 1px solid black;
+    cursor: pointer;
+    transition: background .3s;
+    background: #edd1ac;
   }
+
+  .boardSquare:hover{
+    background: #8f7e67;
+  }
+
+  .taken{
+    cursor: default;
+  }
+
+  .taken:hover{
+    background: #edd1ac;
+  }
+
   .symbol{
-    font-size: 5rem;
+    font-size: 7rem;
     margin: 0;
     position: relative;
-    bottom: 10px;
+    bottom: 15px;
     left: 7px;
+  }
+
+  .playAgainBtn{
+    margin-top: 20px;
   }
 </style>
