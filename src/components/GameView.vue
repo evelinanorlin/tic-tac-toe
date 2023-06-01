@@ -54,5 +54,10 @@ const resetGame = () => {
 
   .resetBtn{
     margin-top: 5px;
+    background: #DB7248;
+  }
+
+  .resetBtn:hover{
+    background: #964e32 !important;
   }
 </style>
