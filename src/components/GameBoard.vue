@@ -121,6 +121,7 @@ const resetBoard = () => {
   isEven.value = false;
   localStorage.setItem('haveWinner', JSON.stringify(haveWinner.value));
   localStorage.setItem('isEven', JSON.stringify(isEven.value));
+  localStorage.setItem('board', JSON.stringify(board.value));
 }
 
 getStartValues();

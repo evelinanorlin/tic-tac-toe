@@ -47,15 +47,13 @@
   <h1>Welcome to Tic-Tac-Toe!</h1>
 
   <form>
-    <label for="playerO">Player O</label><br>
-    <input type="text" id="playerO" v-model="playerO">
-    <button @click.prevent="sendPlayerO">Spara</button>
+    <input type="text" id="playerO" v-model="playerO" placeholder="Player O">
+    <button @click.prevent="sendPlayerO">Add player O</button>
   </form>
 
   <form>
-    <label for="playerX">Player X</label><br>
-    <input type="text" id="playerX" v-model="playerX">
-    <button @click.prevent="sendPlayerX">Spara</button>
+    <input type="text" id="playerX" v-model="playerX" placeholder="Player X">
+    <button @click.prevent="sendPlayerX">Add player X</button>
   </form>
 
   <div>
@@ -63,5 +61,5 @@
     <p>Player X: {{ playerXName }}</p>
   </div>
 
-  <button :disabled="buttonDisabled" @click="startGame">Start game!</button>
+  <button :disabled="buttonDisabled" @click="startGame" class="startBtn">Start game!</button>
 </template>

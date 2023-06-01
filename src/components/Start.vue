@@ -70,5 +70,14 @@ createVariables();
   body{
     width: 500px;
     margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  body, input, button{
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3{
+    font-family: 'Poiret One', cursive;
   }
 </style>
