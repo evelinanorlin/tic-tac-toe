@@ -1,12 +1,27 @@
 <script setup lang="ts">
   import { ref } from 'vue'; 
 
+  let buttonDisabled = ref(JSON.parse(localStorage.getItem('buttonDisabled') ?? '"disabled"'));
+  let playerOName = ref(JSON.parse(localStorage.getItem('playerOName') ?? 'null'));
+  let playerXName = ref(JSON.parse(localStorage.getItem('playerXName') ?? 'null'));
+  let checkStartArr = ref(JSON.parse(localStorage.getItem('checkStartArr') ?? '[]'));
   let playerO = ref('');
   let playerX = ref('');
-  let playerOName = ref('');
-  let playerXName = ref('');
-  let buttonDisabled = ref(true);
-  let checkStartArr =ref<string[]>([]);
+
+  const startValues = () => {
+    if(buttonDisabled.value == 'disabled'){
+      buttonDisabled = ref(true);
+    }
+    if(!playerOName.value){
+      playerOName = ref('');
+    }
+    if(!playerXName.value){
+      playerXName = ref('');
+    }
+    if(!checkStartArr.value){
+      checkStartArr =ref<string[]>([]);
+    }
+  }
 
   const emits = defineEmits<{
     (e: string, name: string): void
@@ -16,6 +31,8 @@
     emits('playerO', playerO.value);
     checkStartArr.value = [...checkStartArr.value, '1']
     playerOName.value = playerO.value;
+    localStorage.setItem('playerOName', JSON.stringify(playerOName.value));
+    localStorage.setItem('checkStartArr', JSON.stringify(checkStartArr.value));
 
     if(checkStartArr.value.length >= 2){
       enableStartGame()
@@ -27,19 +44,24 @@
     checkStartArr.value = [...checkStartArr.value, '1'];
     playerXName.value = playerX.value;
 
+    localStorage.setItem('playerXName', JSON.stringify(playerXName.value));
+    localStorage.setItem('checkStartArr', JSON.stringify(checkStartArr.value));
+
     if(checkStartArr.value.length >= 2){
     enableStartGame()
   }
   }
 
   const enableStartGame = () => {
-    console.log('runs')
     buttonDisabled.value = false;
+    localStorage.setItem('buttonDisabled', JSON.stringify(buttonDisabled.value));
   }
 
   const startGame = () => {
     emits('start', 'start');
   }
+
+  startValues();
 
 </script>
 
