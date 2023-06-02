@@ -8,6 +8,10 @@
   let playerO = ref('');
   let playerX = ref('');
 
+  const emits = defineEmits<{
+    (e: string, name: string): void
+  }>()
+
   const startValues = () => {
     if(buttonDisabled.value == 'disabled'){
       buttonDisabled = ref(true);
@@ -22,10 +26,6 @@
       checkStartArr =ref<string[]>([]);
     }
   }
-
-  const emits = defineEmits<{
-    (e: string, name: string): void
-  }>()
 
   const sendPlayerO = () => {
     emits('playerO', playerO.value);
@@ -62,7 +62,6 @@
   }
 
   startValues();
-
 </script>
 
 <template>
